@@ -11,6 +11,7 @@ Motion::Project::App.setup do |app|
   app.development do
     base_path = "#{File.dirname(__FILE__)}"
     files = []
+    files << 'motion-facon/block_trap'
     files << 'motion-facon/mockable'
     files << 'motion-facon/spec_helpers'
     files << 'motion-facon/version'
