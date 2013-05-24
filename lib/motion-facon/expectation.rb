@@ -58,7 +58,13 @@ module Facon
       self
     end
 
+    def and_trap_block
+      @trap_block = true
+      @trapped_block = BlockTrap.new
+    end
+
     def invoke(args, block)
+      @trapped_block << block if @trap_block
       begin
         raise @exception_to_raise unless @exception_to_raise.nil?
         throw @symbol_to_throw unless @symbol_to_throw.nil?
