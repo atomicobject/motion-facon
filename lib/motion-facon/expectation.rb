@@ -33,6 +33,7 @@ module Facon
       raise MockExpectationError, 'Ambiguous return expectation' unless @method_block.nil?
 
       @return_block = proc { value }
+      self
     end
 
     # Sets up the expected method to yield with the given arguments.
