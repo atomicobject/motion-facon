@@ -29,10 +29,14 @@ module Facon
     end
 
     # Sets up the expected method to return the given value.
-    def and_return(value)
+    def and_return(value = nil, &block)
       raise MockExpectationError, 'Ambiguous return expectation' unless @method_block.nil?
 
-      @return_block = proc { value }
+      if block_given?
+        @return_block = block
+      else
+        @return_block = proc { value }
+      end
       self
     end
 
