@@ -113,6 +113,24 @@ describe "A mock object" do
     }.should.raise(Facon::MockExpectationError).message.should == 'Ambiguous return expectation'
   end
 
+  it "should allow setting a block for the and_return" do
+    @mock.should_receive(:foo).with("bar").and_return do |bar|
+      bar.should == "bar"
+      "return value!"
+    end
+    @mock.foo("bar").should == "return value!"
+  end
+
+  it "should pass a method block to the and_return block" do
+    @mock.should_receive(:foo).with("bar").and_return do |bar, block|
+      bar.should == "bar"
+      block.call 5
+    end
+    @mock.foo("bar") do |val|
+      val * 3
+    end.should == 15
+  end
+
   it "should pass when receiving a message the expected number of times" do
     @mock.should_receive(:message).times(3)
 
